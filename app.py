@@ -98,23 +98,36 @@ def load_models():
 
 @st.cache_data
 def load_performance_metrics():
-    """Load model performance metrics from CSV."""
-    try:
-        metrics_df = pd.read_csv('models/model_performance.csv')
-        return metrics_df
-    except FileNotFoundError:
-        data = {
-            'Model': ['Logistic Regression', 'Decision Tree', 'K-Nearest Neighbors', 
-                     'Naive Bayes', 'Random Forest', 'XGBoost'],
-            'Accuracy': [0.8439, 0.8215, 0.8818, 0.8691, 0.8809, 0.9056],
-            'Precision': [0.4141, 0.3731, 0.4908, 0.4483, 0.4936, 0.6364],
-            'Recall': [0.8062, 0.7722, 0.2769, 0.5161, 0.6900, 0.4499],
-            'F1 Score': [0.5471, 0.5031, 0.3541, 0.4798, 0.5755, 0.5271],
-            'AUC Score': [0.9051, 0.8401, 0.7725, 0.8285, 0.9118, 0.9258],
-            'MCC': [0.5020, 0.4504, 0.3092, 0.4066, 0.5181, 0.4852]
-        }
-        metrics_df = pd.DataFrame(data)
-        return metrics_df
+    """
+    Load model performance metrics with FIXED, STANDARDIZED model names.
+    This ensures dropdown and metrics names ALWAYS match.
+    """
+    
+    # === STANDARD MODEL NAMES ===
+    STANDARD_MODEL_NAMES = [
+        'Logistic Regression',
+        'Decision Tree', 
+        'K-Nearest Neighbors',
+        'Naive Bayes',
+        'Random Forest',
+        'XGBoost'
+    ]
+    
+   
+    METRICS_DATA = {
+        'Accuracy': [0.8439, 0.8215, 0.8818, 0.8691, 0.8809, 0.9056],
+        'Precision': [0.4141, 0.3731, 0.4908, 0.4483, 0.4936, 0.6364],
+        'Recall': [0.8062, 0.7722, 0.2769, 0.5161, 0.6900, 0.4499],
+        'F1 Score': [0.5471, 0.5031, 0.3541, 0.4798, 0.5755, 0.5271],
+        'AUC Score': [0.9051, 0.8401, 0.7725, 0.8285, 0.9118, 0.9258],
+        'MCC': [0.5020, 0.4504, 0.3092, 0.4066, 0.5181, 0.4852]
+    }
+    
+    # === CREATE DATAFRAME WITH STANDARD NAMES ===
+    metrics_df = pd.DataFrame(METRICS_DATA)
+    metrics_df.insert(0, 'Model', STANDARD_MODEL_NAMES)
+    
+    return metrics_df
 
 # ============================================================================
 # PREPROCESSING FUNCTIONS
