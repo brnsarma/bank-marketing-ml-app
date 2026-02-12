@@ -48,11 +48,6 @@ The dataset is related to **direct marketing campaigns** (phone calls) of a Port
 | `previous` | Numerical | Number of contacts before this campaign | 0-275 |
 | `poutcome` | Categorical | Outcome of previous campaign | failure, nonexistent, success |
 
----
-
-### 🔬 Exploratory Data Analysis Insights
-
-**1. Class Imbalance Visualization:**
 
 ---
 
