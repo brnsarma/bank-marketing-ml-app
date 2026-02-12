@@ -92,6 +92,34 @@ The dataset is related to **direct marketing campaigns** (phone calls) of a Port
 
 ---
 
+## 📸 Visualizations
+
+### 1. Target Variable Distribution
+![Class Distribution](assets/target_distribution.png)
+*Figure 1: Severe class imbalance (88.3% No, 11.7% Yes)*
+
+### 2. Confusion Matrix - Random Forest
+![Confusion Matrix](assets/confusion_matrix_rf.png)
+*Figure 2: Best model performance on test set*
+
+### 3. Feature Importance
+![Feature Importance](assets/feature_importance.png)
+*Figure 3: Top 10 features driving predictions*
+
+### 4. Model Performance Comparison
+![Model Comparison](assets/model_comparison.png)
+*Figure 4: F1 Score and AUC across all 6 models*
+
+### 5. ROC Curve
+![ROC Curve](assets/roc_curve.png)
+*Figure 5: Random Forest AUC = 0.9118*
+
+### 6. Live Application
+![Streamlit App](assets/app_screenshot.png)
+*Figure 6: Deployed Streamlit web application*
+
+---
+
 ## e. Streamlit Web Application
 
 The project includes an interactive Streamlit app with:
