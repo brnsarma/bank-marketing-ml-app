@@ -42,12 +42,12 @@ Predict if a bank client will subscribe to a term deposit (binary classification
 
 | ML Model Name | Observation about model performance |
 |--------------|-----------------------------------|
-| Logistic Regression | Fast training, interpretable, moderate precision but low recall. Good baseline model. |
-| Decision Tree | Prone to overfitting despite max_depth=10. Moderate performance across all metrics. |
-| K-Nearest Neighbors | Sensitive to feature scaling. Performs reasonably but slower prediction time. |
-| Naive Bayes | Fastest training, better recall than precision. Assumes feature independence. |
-| Random Forest | Excellent accuracy, handles imbalance well. Top 2 performer overall. |
-| XGBoost | **Best overall performance**. Best AUC, F1, and MCC. Handles imbalance effectively. |
+| Logistic Regression | Excellent recall (0.8062) - catches 80% of actual subscribers. Very high AUC (0.9051). Fast training, interpretable. Good baseline model despite moderate precision. |
+| Decision Tree | Good recall (0.7722) but lower accuracy. Prone to overfitting. Most interpretable model. Moderate performance overall. |
+| K-Nearest Neighbors | Poor recall (0.2769) - misses 72% of subscribers. Not suitable for this imbalanced dataset despite good accuracy. Slow prediction time. |
+| Naive Bayes | Balanced precision-recall. Fastest training. Assumes feature independence which may not hold. Moderate performance. |
+| Random Forest | 🏆 **Best F1 Score (0.5755) and Best MCC (0.5181)** . Excellent balance of precision and recall. Handles class imbalance very well. Recommended for production. |
+| XGBoost | 🏆 **Best Accuracy (0.9056) and Best AUC (0.9258)** . Highest precision (0.6364) - most reliable when predicting "yes". Slightly lower recall than Random Forest. |
 
 
 ---
