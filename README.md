@@ -202,10 +202,8 @@ new_client = pd.DataFrame([{
     'poutcome': 'unknown'
 }])
 ```
-# Note: Full preprocessing pipeline is handled automatically in the web app
-# This is a simplified example for reference
 
-### Business Impact Analysis
+## Business Impact Analysis
 * **False Positives:** Cost of marketing calls to non-interested clients.
 * **False Negatives:** Missed revenue from potential subscribers.
 * **Optimal Model:** **Random Forest** provides the best balance of precision and recall for targeting.
@@ -213,7 +211,7 @@ new_client = pd.DataFrame([{
 
 ---
 
-## l. Limitations and Future Work
+## Limitations and Future Work
 
 ### Current Limitations
 * **Class Imbalance:** Only 11.7% positive cases affect model recall.
