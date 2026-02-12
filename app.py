@@ -124,62 +124,67 @@ def load_performance_metrics():
 def preprocess_input_data(df, feature_names):
     """
     Properly preprocess uploaded data to match training features.
-    Handles categorical encoding and feature engineering.
+    Handles categorical encoding and feature engineering EXACTLY like training.
     """
     df_processed = df.copy()
     
-    # === 1. ENCODE CATEGORICAL VARIABLES ===
-    # List of categorical columns (same as training)
+    # === 1. ENCODE TARGET (if present) ===
+    if 'y' in df_processed.columns:
+        df_processed['y'] = df_processed['y'].map({'no': 0, 'yes': 1})
+    
+    # === 2. IDENTIFY CATEGORICAL COLUMNS ===
     categorical_cols = ['job', 'marital', 'education', 'default', 'housing', 
                         'loan', 'contact', 'month', 'poutcome']
     
-    # One-hot encode categorical columns
+    # === 3. ONE-HOT ENCODE CATEGORICAL VARIABLES ===
     for col in categorical_cols:
         if col in df_processed.columns:
-            # Get dummies for this column
+            # Get dummies with drop_first=True (same as training)
             dummies = pd.get_dummies(df_processed[col], prefix=col, drop_first=True)
             df_processed = pd.concat([df_processed, dummies], axis=1)
             df_processed.drop(col, axis=1, inplace=True)
+            print(f"✅ Encoded {col} -> {len(dummies.columns)} columns")  # Debug
     
-    # === 2. FEATURE ENGINEERING ===
+    # === 4. FEATURE ENGINEERING ===
+    # Age groups
     if 'age' in df_processed.columns:
-        # Create age groups
         df_processed['age_group'] = pd.cut(df_processed['age'], 
                                           bins=[0, 30, 40, 50, 60, 100],
                                           labels=['<30', '30-40', '40-50', '50-60', '60+'])
-        # One-hot encode age groups
         age_dummies = pd.get_dummies(df_processed['age_group'], prefix='age_group', drop_first=True)
         df_processed = pd.concat([df_processed, age_dummies], axis=1)
         df_processed.drop('age_group', axis=1, inplace=True)
     
+    # Balance categories
     if 'balance' in df_processed.columns:
-        # Create balance categories
         df_processed['balance_category'] = pd.cut(df_processed['balance'],
                                                  bins=[-float('inf'), 0, 1000, 5000, float('inf')],
                                                  labels=['negative', 'low', 'medium', 'high'])
-        # One-hot encode balance categories
         balance_dummies = pd.get_dummies(df_processed['balance_category'], 
                                         prefix='balance_category', drop_first=True)
         df_processed = pd.concat([df_processed, balance_dummies], axis=1)
         df_processed.drop('balance_category', axis=1, inplace=True)
     
+    # Campaign intensity
     if 'campaign' in df_processed.columns and 'duration' in df_processed.columns:
-        # Campaign intensity
         df_processed['campaign_intensity'] = df_processed['campaign'] / (df_processed['duration'] + 1)
     
+    # Previous success ratio
     if 'pdays' in df_processed.columns:
-        # Previous success ratio
         df_processed['previous_success_ratio'] = df_processed['pdays'].apply(
             lambda x: 1 if x == 999 else 0
         )
     
-    # === 3. ENSURE ALL TRAINING FEATURES EXIST ===
+    # === 5. ENSURE ALL TRAINING FEATURES EXIST ===
     for col in feature_names:
         if col not in df_processed.columns:
             df_processed[col] = 0  # Add missing columns with 0
     
-    # === 4. KEEP ONLY TRAINING FEATURES IN CORRECT ORDER ===
+    # === 6. KEEP ONLY TRAINING FEATURES IN CORRECT ORDER ===
     df_processed = df_processed[feature_names]
+    
+    print(f"✅ Final processed shape: {df_processed.shape}")
+    print(f"✅ Expected features: {len(feature_names)}")
     
     return df_processed
 
