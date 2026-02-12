@@ -245,6 +245,8 @@ new_client = pd.DataFrame([{
 * [UCI Bank Marketing Dataset](https://archive.ics.uci.edu/ml/datasets/Bank+Marketing)
 * [Streamlit Documentation](https://docs.streamlit.io)
 
+---
+
 ### 📄 License
 This project is submitted as part of an academic assignment. All rights reserved.  
 © 2026 | Bank Marketing Term Deposit Prediction | ML Classification Project
