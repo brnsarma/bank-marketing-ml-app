@@ -9,3 +9,8 @@ age,job,marital,education,default,balance,housing,loan,contact,day,month,duratio
 47,retired,married,primary,no,5600,yes,yes,telephone,8,oct,380,1,255,1,failure
 33,self-employed,married,tertiary,no,4300,yes,no,cellular,14,nov,210,2,999,0,unknown
 45,technician,single,secondary,no,1850,no,no,cellular,25,dec,125,1,320,1,success
+41,management,married,tertiary,no,8900,yes,no,cellular,11,mar,310,2,999,0,unknown
+36,blue-collar,married,secondary,no,2300,yes,yes,cellular,16,apr,195,1,180,2,success
+52,retired,married,primary,no,7200,yes,no,telephone,7,feb,420,1,999,0,unknown
+26,student,single,secondary,no,300,no,no,cellular,13,may,45,2,999,0,unknown
+49,technician,married,tertiary,no,5100,yes,no,cellular,19,jun,280,2,45,1,failure
