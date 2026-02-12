@@ -132,19 +132,15 @@ bank-marketing-ml-app/
     ```bash
     pip install -r requirements.txt
 
-3. **Install dependencies:**
-    ```bash
-    pip install -r requirements.txt
-
-4. **Run the model training pipeline (models are pre-trained, optional):**
+3. **Run the model training pipeline (models are pre-trained, optional):**
     ```bash
     python train_and_save_models.py
 
-5. **Launch the Streamlit application:**
+4. **Launch the Streamlit application:**
     ```bash
     streamlit run app.py
 
-6. **Open your browser and navigate to:**
+5. **Open your browser and navigate to:**
     ```bash
     http://localhost:8501
 
