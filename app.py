@@ -1,6 +1,6 @@
 """
 Streamlit Web Application for Bank Marketing Term Deposit Prediction
-Author: [Your Name]
+Author: R N Sarma Bollapinni
 Date: February 2026
 """
 
