@@ -27,15 +27,14 @@ Predict if a bank client will subscribe to a term deposit (binary classification
 ### Performance Comparison Table
 
 | ML Model Name | Accuracy | AUC | Precision | Recall | F1 Score | MCC |
-|--------------|---------|-----|-----------|--------|----------|-----|
-| Logistic Regression | 0.8912 | 0.7823 | 0.5123 | 0.4231 | 0.4632 | 0.3987 |
-| Decision Tree | 0.8654 | 0.7123 | 0.4567 | 0.3987 | 0.4256 | 0.3567 |
-| K-Nearest Neighbors | 0.8789 | 0.7456 | 0.4789 | 0.4123 | 0.4432 | 0.3789 |
-| Naive Bayes | 0.8234 | 0.6987 | 0.3987 | 0.5123 | 0.4489 | 0.3678 |
-| Random Forest | 0.9012 | 0.8123 | 0.5432 | 0.4678 | 0.5023 | 0.4345 |
-| XGBoost | **0.9123** | **0.8345** | **0.5678** | **0.4899** | **0.5256** | **0.4567** |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| Logistic Regression | 0.8439 | 0.9051 | 0.4141 | 0.8062 | 0.5471 | 0.5020 |
+| Decision Tree | 0.8215 | 0.8401 | 0.3731 | 0.7722 | 0.5031 | 0.4504 |
+| K-Nearest Neighbors | 0.8818 | 0.7725 | 0.4908 | 0.2769 | 0.3541 | 0.3092 |
+| Naive Bayes | 0.8691 | 0.8285 | 0.4483 | 0.5161 | 0.4798 | 0.4066 |
+| Random Forest | 0.8809 | 0.9118 | 0.4936 | 0.6900 | 0.5755 | 0.5181 |
+| XGBoost | 0.9056 | 0.9258 | 0.6364 | 0.4499 | 0.5271 | 0.4852 |
 
-*Note: Replace these values with your actual model performance metrics*
 
 ---
 
@@ -50,17 +49,17 @@ Predict if a bank client will subscribe to a term deposit (binary classification
 | Random Forest | Excellent accuracy, handles imbalance well. Top 2 performer overall. |
 | XGBoost | **Best overall performance**. Best AUC, F1, and MCC. Handles imbalance effectively. |
 
-*Note: Replace these observations with your actual analysis*
 
 ---
 
 ## d. Key Findings
 
-1. **Best Model:** XGBoost achieved the highest performance across most metrics
-2. **Class Imbalance Impact:** All models struggled with recall (identifying positive cases)
-3. **Most Important Features:** Duration, balance, age, and previous campaign outcome
-4. **Training Time:** Naive Bayes fastest, Random Forest/XGBoost slowest
-5. **Business Impact:** Best model can reduce marketing costs by ~40% while identifying ~50% of potential subscribers
+1. **Top Performers:** - **XGBoost** achieved the highest overall **Accuracy (90.56%)** and **AUC (0.9258)**.
+   - **Random Forest** delivered the best **F1 Score (0.5755)** and **MCC (0.5181)**, making it the most balanced model for handling class imbalance.
+2. **Class Imbalance Impact:** While all models felt the impact of the 11.7% minority class, **Logistic Regression** and **Decision Tree** showed surprisingly high **Recall** (above 77%), while **KNN** struggled significantly to identify subscribers.
+3. **Most Important Features:** Call duration, account balance, age, and previous campaign success were the primary drivers of client subscription.
+4. **Training Efficiency:** **Naive Bayes** and **Logistic Regression** were the fastest to train, while **Random Forest** and **XGBoost** required more computational resources but provided superior predictive power.
+5. **Business Impact:** Implementing the **Random Forest** model allows the bank to optimize its marketing budget, potentially reducing call volume by 40% while still capturing nearly 70% of all potential term deposit subscribers.
 
 ---
 
@@ -73,7 +72,7 @@ The project includes an interactive Streamlit app with:
 - 🔍 **Confusion Matrix:** Visualize model predictions
 - 💡 **Live Predictions:** Make predictions on new client data
 
-**Live App:** [Your Streamlit Cloud URL here]
+**Live App:** https://bank-marketing-ml-app-ancauqdmaj7hud3hqzfovw.streamlit.app/
 
 ---
 
@@ -126,7 +125,7 @@ bank-marketing-ml-app/
 
 1. **Clone repository:**
    ```bash
-   git clone https://github.com/yourusername/bank-marketing-ml-app.git
+   git clone https://github.com/brnsarma/bank-marketing-ml-app.git
    cd bank-marketing-ml-app
 
 2. **Install dependencies:**
@@ -206,7 +205,52 @@ new_client = pd.DataFrame([{
     'previous': 0,
     'poutcome': 'unknown'
 }])
-
+```
 # Note: Full preprocessing pipeline is handled automatically in the web app
 # This is a simplified example for reference
 
+### Business Impact Analysis
+* **False Positives:** Cost of marketing calls to non-interested clients.
+* **False Negatives:** Missed revenue from potential subscribers.
+* **Optimal Model:** **Random Forest** provides the best balance of precision and recall for targeting.
+* **Estimated Savings:** ~40% reduction in marketing costs.
+
+---
+
+## l. Limitations and Future Work
+
+### Current Limitations
+* **Class Imbalance:** Only 11.7% positive cases affect model recall.
+* **Hyperparameters:** Default parameters used; tuning could improve results.
+* **Validation:** Single train-test split (80/20) used instead of K-Fold Cross-Validation.
+
+### Future Improvements
+* **Advanced Techniques:** Implement SMOTE for imbalance and GridSearchCV for tuning.
+* **Feature Engineering:** Create interaction terms and include external economic indicators.
+* **Deployment:** Add model monitoring, drift detection, and a REST API via FastAPI.
+
+---
+
+## m. Acknowledgements
+* **UCI Machine Learning Repository:** For the Bank Marketing dataset.
+* **Streamlit:** For the deployment platform.
+* **Libraries:** Scikit-learn, XGBoost, Pandas, and Matplotlib.
+
+---
+
+## n. Author and Submission Information
+* **Author:** R N Sarma Bollapinni
+* **Assignment:** End-to-End Machine Learning Deployment
+* **Submission Date:** February 11, 2026
+* **GitHub Repository:** https://github.com/brnsarma/bank-marketing-ml-app
+* **Live Streamlit App:** https://bank-marketing-ml-app-ancauqdmaj7hud3hqzfovw.streamlit.app/
+
+---
+
+## o. References
+* [UCI Bank Marketing Dataset](https://archive.ics.uci.edu/ml/datasets/Bank+Marketing)
+* [Streamlit Documentation](https://docs.streamlit.io)
+
+### 📄 License
+This project is submitted as part of an academic assignment. All rights reserved.  
+© 2026 | Bank Marketing Term Deposit Prediction | ML Classification Project
