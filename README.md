@@ -90,35 +90,37 @@ The project includes an interactive Streamlit app with:
 ---
 
 ## g. Project Structure
+
+```text
 bank-marketing-ml-app/
 │
-├── app.py # Streamlit application
-├── train_and_save_models.py # Model training pipeline
-├── requirements.txt # Dependencies
-├── README.md # Project documentation
+├── app.py                      # Main Streamlit application
+├── train_and_save_models.py    # Model training pipeline
+├── requirements.txt            # Project dependencies
+├── README.md                   # Project documentation
 │
-├── src/ # Source code package
-│ ├── init.py
-│ ├── data_preprocessing.py # Data loading & preprocessing
-│ ├── model_training.py # Model training & evaluation
-│ └── utils.py # Visualization utilities
+├── src/                        # Source code package
+│   ├── __init__.py             # Package marker
+│   ├── data_preprocessing.py   # Data loading & preprocessing
+│   ├── model_training.py       # Model training & evaluation
+│   └── utils.py                # Visualization utilities
 │
-├── models/ # Saved trained models
-│ ├── logistic_regression.pkl
-│ ├── decision_tree.pkl
-│ ├── knn.pkl
-│ ├── naive_bayes.pkl
-│ ├── random_forest.pkl
-│ ├── xgboost.pkl
-│ ├── scaler.pkl
-│ └── feature_names.pkl
+├── models/                     # Saved trained models & artifacts
+│   ├── logistic_regression.pkl
+│   ├── decision_tree.pkl
+│   ├── knn.pkl
+│   ├── naive_bayes.pkl
+│   ├── random_forest.pkl
+│   ├── xgboost.pkl
+│   ├── scaler.pkl
+│   └── feature_names.pkl
 │
-├── notebooks/ # Jupyter notebook for EDA
-│ └── bank_marketing_analysis.ipynb
+├── notebooks/                  # Exploratory Data Analysis
+│   └── bank_marketing_analysis.ipynb
 │
-└── data/ # Dataset
-└── bank-additional-full.csv
-
+└── data/                       # Dataset
+    └── bank-additional-full.csv
+```
 
 ## h. How to Run Locally
 
