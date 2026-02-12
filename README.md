@@ -11,14 +11,48 @@ Predict if a bank client will subscribe to a term deposit (binary classification
 ---
 
 ## b. Dataset Description
-- **Source:** UCI Machine Learning Repository (Bank Marketing Dataset)
-- **Instances:** 45,211 client records
-- **Features:** 16 attributes (age, job, marital, education, default, balance, housing, loan, contact, day, month, duration, campaign, pdays, previous, poutcome)
-- **Target Variable:** `y` - Has the client subscribed to a term deposit? (yes/no)
-- **Class Distribution:** 
-  - No: ~88.7% (majority class)
-  - Yes: ~11.3% (minority class)
-- **Challenges:** Class imbalance, mixed data types (numerical + categorical)
+
+### 📊 Bank Marketing Dataset (UCI Repository ID: 222)
+
+The dataset is related to **direct marketing campaigns** (phone calls) of a Portuguese banking institution. The goal is to predict whether a client will subscribe to a **term deposit** product.
+
+| **Attribute** | **Details** |
+|---------------|-------------|
+| **Source** | [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/Bank+Marketing) |
+| **Samples** | 45,211 client records |
+| **Features** | 16 input attributes (10 categorical, 6 numerical) |
+| **Target** | `y` - Has the client subscribed to a term deposit? (binary: yes/no) |
+| **Class Distribution** | 🔴 **No**: 39,922 (88.3%) — Majority class<br>🟢 **Yes**: 5,289 (11.7%) — Minority class |
+| **Key Challenge** | ⚖️ **Severe class imbalance** (7.5:1 ratio) |
+
+---
+
+### 📋 Feature Description
+
+| Feature | Type | Description | Values |
+|---------|------|-------------|--------|
+| `age` | Numerical | Client age | 18-95 years |
+| `job` | Categorical | Type of job | admin., blue-collar, entrepreneur, housemaid, management, retired, self-employed, services, student, technician, unemployed, unknown |
+| `marital` | Categorical | Marital status | divorced, married, single, unknown |
+| `education` | Categorical | Education level | primary, secondary, tertiary, unknown |
+| `default` | Categorical | Has credit in default? | no, yes, unknown |
+| `balance` | Numerical | Average yearly balance in euros | -8,019 to 102,127 |
+| `housing` | Categorical | Has housing loan? | no, yes, unknown |
+| `loan` | Categorical | Has personal loan? | no, yes, unknown |
+| `contact` | Categorical | Contact communication type | cellular, telephone |
+| `day` | Numerical | Last contact day of the month | 1-31 |
+| `month` | Categorical | Last contact month | jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec |
+| `duration` | Numerical | Last contact duration in seconds | 0-4,918 seconds (⚠️ affects target heavily) |
+| `campaign` | Numerical | Number of contacts during this campaign | 1-63 |
+| `pdays` | Numerical | Days since last contact from previous campaign | 0-999 (999 = never contacted) |
+| `previous` | Numerical | Number of contacts before this campaign | 0-275 |
+| `poutcome` | Categorical | Outcome of previous campaign | failure, nonexistent, success |
+
+---
+
+### 🔬 Exploratory Data Analysis Insights
+
+**1. Class Imbalance Visualization:**
 
 ---
 
