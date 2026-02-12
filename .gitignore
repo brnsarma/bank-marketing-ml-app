@@ -19,7 +19,6 @@ build/
 .streamlit/secrets.toml
 
 # Data (don't commit large files - Streamlit Cloud will download from UCI)
-data/*.csv
 !data/.gitkeep
 
 # VS Code
