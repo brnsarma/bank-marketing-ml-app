@@ -146,7 +146,7 @@ bank-marketing-ml-app/
 
 ## i. Usage Guide
 
-### 🔹 Using the Web Application
+### Using the Web Application
 
 **1. Upload Data:**
    - Click on "Browse files" to upload a CSV file
@@ -169,7 +169,7 @@ bank-marketing-ml-app/
    - Visualize prediction distribution with interactive charts
    - View confusion matrix for selected model
 
-### 🔸 Making Predictions on New Data
+### Making Predictions on New Data
 
 ```python
 # Example: Using the trained model in Python
@@ -203,7 +203,7 @@ new_client = pd.DataFrame([{
 }])
 ```
 
-## Business Impact Analysis
+## j. Business Impact Analysis
 * **False Positives:** Cost of marketing calls to non-interested clients.
 * **False Negatives:** Missed revenue from potential subscribers.
 * **Optimal Model:** **Random Forest** provides the best balance of precision and recall for targeting.
@@ -211,7 +211,7 @@ new_client = pd.DataFrame([{
 
 ---
 
-## Limitations and Future Work
+## k. Limitations and Future Work
 
 ### Current Limitations
 * **Class Imbalance:** Only 11.7% positive cases affect model recall.
@@ -225,14 +225,14 @@ new_client = pd.DataFrame([{
 
 ---
 
-## m. Acknowledgements
+## l. Acknowledgements
 * **UCI Machine Learning Repository:** For the Bank Marketing dataset.
 * **Streamlit:** For the deployment platform.
 * **Libraries:** Scikit-learn, XGBoost, Pandas, and Matplotlib.
 
 ---
 
-## n. Author and Submission Information
+## m. Author and Submission Information
 * **Author:** R N Sarma Bollapinni
 * **Assignment:** End-to-End Machine Learning Deployment
 * **Submission Date:** February 11, 2026
@@ -241,7 +241,7 @@ new_client = pd.DataFrame([{
 
 ---
 
-## o. References
+## n. References
 * [UCI Bank Marketing Dataset](https://archive.ics.uci.edu/ml/datasets/Bank+Marketing)
 * [Streamlit Documentation](https://docs.streamlit.io)
 
