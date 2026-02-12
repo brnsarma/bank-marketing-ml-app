@@ -103,7 +103,6 @@ def load_performance_metrics():
         metrics_df = pd.read_csv('models/model_performance.csv')
         return metrics_df
     except FileNotFoundError:
-        # Your actual metrics from the CSV
         data = {
             'Model': ['Logistic Regression', 'Decision Tree', 'K-Nearest Neighbors', 
                      'Naive Bayes', 'Random Forest', 'XGBoost'],
