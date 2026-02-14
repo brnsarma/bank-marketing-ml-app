@@ -372,7 +372,7 @@ def main():
         )
         st.plotly_chart(fig, use_container_width=True)
     
-    # ========================================================================
+        # ========================================================================
     # PREDICTIONS SECTION
     # ========================================================================
     
@@ -380,17 +380,32 @@ def main():
     
     # Load data
     if use_sample:
-        # Create sample test data
+        # Enhanced sample data WITH true labels for demonstration
         sample_data = pd.DataFrame({
-            'age': [35, 42, 28, 55, 31],
-            'balance': [1500, 3200, 800, 12500, 2100],
-            'duration': [180, 320, 95, 450, 230],
-            'campaign': [2, 1, 3, 1, 2],
-            'pdays': [999, 999, 180, 999, 45],
-            'previous': [0, 0, 1, 0, 2]
+            'age': [35, 42, 28, 55, 31, 38, 29, 47, 33, 45],
+            'job': ['admin.', 'technician', 'services', 'management', 'blue-collar',
+                    'entrepreneur', 'student', 'retired', 'self-employed', 'technician'],
+            'marital': ['married', 'married', 'single', 'married', 'married',
+                       'divorced', 'single', 'married', 'married', 'single'],
+            'education': ['secondary', 'tertiary', 'secondary', 'tertiary', 'secondary',
+                         'primary', 'secondary', 'primary', 'tertiary', 'secondary'],
+            'default': ['no'] * 10,
+            'balance': [1500, 3200, 800, 12500, 2100, 0, 450, 5600, 4300, 1850],
+            'housing': ['yes', 'yes', 'no', 'yes', 'yes', 'no', 'no', 'yes', 'yes', 'no'],
+            'loan': ['no', 'no', 'no', 'yes', 'no', 'no', 'no', 'yes', 'no', 'no'],
+            'contact': ['cellular'] * 8 + ['telephone'] * 2,
+            'day': [15, 20, 10, 5, 12, 18, 22, 8, 14, 25],
+            'month': ['may', 'jun', 'apr', 'jul', 'may', 'aug', 'sep', 'oct', 'nov', 'dec'],
+            'duration': [180, 320, 95, 450, 230, 150, 60, 380, 210, 125],
+            'campaign': [2, 1, 3, 1, 2, 2, 1, 1, 2, 1],
+            'pdays': [999, 999, 180, 999, 45, 999, 999, 255, 999, 320],
+            'previous': [0, 0, 1, 0, 2, 0, 0, 1, 0, 1],
+            'poutcome': ['unknown', 'unknown', 'success', 'unknown', 'failure',
+                        'unknown', 'unknown', 'failure', 'unknown', 'success'],
+            'y': ['no', 'no', 'yes', 'no', 'yes', 'no', 'no', 'no', 'no', 'yes']  # True labels
         })
         df = sample_data
-        st.info("📋 Using sample test data. Upload your own CSV file to make predictions on custom data.")
+        st.info("📋 Using sample test data WITH true labels. Upload your own CSV file to test custom data.")
     elif uploaded_file is not None:
         df = pd.read_csv(uploaded_file)
         st.success(f"✅ Loaded {len(df)} records from {uploaded_file.name}")
@@ -487,7 +502,9 @@ def main():
                     fig.add_vline(x=0.5, line_dash="dash", line_color="red")
                     st.plotly_chart(fig, use_container_width=True)
                 
-                # Confusion Matrix & Classification Report - Step 6d
+                # ============================================================
+                # CONFUSION MATRIX & CLASSIFICATION REPORT
+                # ============================================================
                 st.markdown("---")
                 st.markdown('<h2 class="sub-header">🔍 Model Evaluation</h2>', unsafe_allow_html=True)
                 
@@ -500,9 +517,9 @@ def main():
                     y_pred = predictions
                     
                     # Create two columns for confusion matrix and classification report
-                    col1, col2 = st.columns(2)
+                    eval_col1, eval_col2 = st.columns(2)
                     
-                    with col1:
+                    with eval_col1:
                         st.markdown("### 📊 Confusion Matrix")
                         # Plot confusion matrix
                         cm = confusion_matrix(y_true, y_pred)
@@ -516,7 +533,7 @@ def main():
                         st.pyplot(fig_cm)
                         plt.close()
                     
-                    with col2:
+                    with eval_col2:
                         st.markdown("### 📋 Classification Report")
                         # Generate classification report
                         report = classification_report(y_true, y_pred, 
@@ -544,7 +561,7 @@ def main():
                         metrics_df = pd.DataFrame(metrics_data)
                         st.dataframe(metrics_df.style.format({'Value': '{:.0f}' if isinstance(metrics_df['Value'].iloc[0], int) else '{:.3f}'}),
                                     use_container_width=True)
-                
+
                 else:
                     # If no true labels, show message and option to download predictions
                     st.info("ℹ️ To see confusion matrix and classification report, upload a CSV file with a 'y' column containing true labels (yes/no).")
@@ -560,6 +577,10 @@ def main():
                         })
                         st.dataframe(example_data)
                         st.caption("Upload a CSV with ALL features plus a 'y' column for evaluation")
+            
+            except Exception as e:
+                st.error(f"❌ Error making predictions: {str(e)}")
+                st.info("Please ensure your CSV file has the correct format and features.")
     
     # ========================================================================
     # FOOTER
