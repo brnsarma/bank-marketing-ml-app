@@ -171,11 +171,8 @@ bank-marketing-ml-app/
 │   ├── scaler.pkl
 │   └── feature_names.pkl
 │
-├── notebooks/                  # Exploratory Data Analysis
-│   └── bank_marketing_analysis.ipynb
-│
-└── data/                       # Dataset
-    └── bank-additional-full.csv
+└── data/                       # test data
+    └── test_data.csv
 ```
 
 ## h. How to Run Locally
