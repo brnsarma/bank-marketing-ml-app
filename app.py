@@ -487,29 +487,79 @@ def main():
                     fig.add_vline(x=0.5, line_dash="dash", line_color="red")
                     st.plotly_chart(fig, use_container_width=True)
                 
-                # Confusion Matrix - Step 6d
-                if 'y_true' in df.columns:
-                    st.markdown('<h3 style="color: #34495e;">🔍 Confusion Matrix</h3>', unsafe_allow_html=True)
+                # Confusion Matrix & Classification Report - Step 6d
+                st.markdown("---")
+                st.markdown('<h2 class="sub-header">🔍 Model Evaluation</h2>', unsafe_allow_html=True)
+                
+                # Check if the uploaded data contains the true labels (column 'y')
+                if 'y' in df.columns:
+                    st.success("✅ True labels found! Showing confusion matrix and classification report.")
                     
+                    # Convert true labels to numeric
                     y_true = df['y'].map({'no': 0, 'yes': 1})
                     y_pred = predictions
                     
+                    # Create two columns for confusion matrix and classification report
                     col1, col2 = st.columns(2)
                     
                     with col1:
-                        fig = plot_confusion_matrix(y_true, y_pred, selected_model)
-                        st.pyplot(fig)
+                        st.markdown("### 📊 Confusion Matrix")
+                        # Plot confusion matrix
+                        cm = confusion_matrix(y_true, y_pred)
+                        fig_cm, ax_cm = plt.subplots(figsize=(6, 5))
+                        sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', ax=ax_cm,
+                                   xticklabels=['No', 'Yes'], yticklabels=['No', 'Yes'],
+                                   annot_kws={'size': 14})
+                        ax_cm.set_xlabel('Predicted Label', fontweight='bold', fontsize=12)
+                        ax_cm.set_ylabel('True Label', fontweight='bold', fontsize=12)
+                        ax_cm.set_title(f'Confusion Matrix - {selected_model}', fontweight='bold', fontsize=14)
+                        st.pyplot(fig_cm)
                         plt.close()
                     
                     with col2:
-                        # Classification report
-                        report = classification_report(y_true, y_pred, output_dict=True)
+                        st.markdown("### 📋 Classification Report")
+                        # Generate classification report
+                        report = classification_report(y_true, y_pred, 
+                                                      target_names=['No', 'Yes'],
+                                                      output_dict=True)
                         report_df = pd.DataFrame(report).transpose()
-                        st.dataframe(report_df.round(4), use_container_width=True)
+                        
+                        # Format and display
+                        st.dataframe(
+                            report_df.style.format("{:.3f}")
+                            .background_gradient(cmap='viridis', subset=pd.IndexSlice['No':'Yes', :]),
+                            use_container_width=True
+                        )
+                        
+                        # Calculate and display additional metrics
+                        tn, fp, fn, tp = cm.ravel()
+                        st.markdown("### 📈 Additional Metrics")
+                        metrics_data = {
+                            'Metric': ['True Negatives', 'False Positives', 'False Negatives', 'True Positives', 
+                                      'Sensitivity (Recall)', 'Specificity', 'Precision', 'F1 Score'],
+                            'Value': [tn, fp, fn, tp, 
+                                     tp/(tp+fn), tn/(tn+fp), 
+                                     tp/(tp+fp), 2*tp/(2*tp+fp+fn)]
+                        }
+                        metrics_df = pd.DataFrame(metrics_data)
+                        st.dataframe(metrics_df.style.format({'Value': '{:.0f}' if isinstance(metrics_df['Value'].iloc[0], int) else '{:.3f}'}),
+                                    use_container_width=True)
                 
-            except Exception as e:
-                st.error(f"❌ Error making predictions: {str(e)}")
-                st.info("Please ensure your CSV file has the correct format and features.")
+                else:
+                    # If no true labels, show message and option to download predictions
+                    st.info("ℹ️ To see confusion matrix and classification report, upload a CSV file with a 'y' column containing true labels (yes/no).")
+                    
+                    # Example format
+                    with st.expander("📋 View expected CSV format for evaluation"):
+                        example_data = pd.DataFrame({
+                            'age': [35, 42, 28],
+                            'job': ['admin.', 'technician', 'services'],
+                            'marital': ['married', 'married', 'single'],
+                            'education': ['secondary', 'tertiary', 'secondary'],
+                            'y': ['no', 'no', 'yes']  # Include true labels
+                        })
+                        st.dataframe(example_data)
+                        st.caption("Upload a CSV with ALL features plus a 'y' column for evaluation")
     
     # ========================================================================
     # FOOTER
